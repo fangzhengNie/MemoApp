@@ -3,49 +3,93 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FAFAFA">
 
-    <!-- 列表区域 -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <!-- 顶部标题栏，背景紫色，文字白色 -->
+    <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="56dp"
+        android:background="#6200EE"
+        android:text="我的备忘录"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/btnLogout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewListContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="12dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:padding="12dp"
+        android:background="#FFFFFF"
+        android:scrollbars="vertical" />
+    </androidx.cardview.widget.CardView>
+
+
     <!-- 左侧按钮：退出登录 -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:text="退出登录"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
+        style="@style/Widget.MaterialComponents.Button"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="12dp"
+        app:cornerRadius="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnClearAccount"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <!-- 右侧按钮：清除账户 -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnClearAccount"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:text="清除账户"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        style="@style/Widget.MaterialComponents.Button"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        app:cornerRadius="8dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginBottom="12dp"
         app:layout_constraintStart_toEndOf="@id/btnLogout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-    <!-- 右下角悬浮添加按钮 -->
+    <!-- 悬浮按钮：新增 -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddMemo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="新增备忘录"
         android:layout_margin="16dp"
+        android:tint="@android:color/white"
+        android:backgroundTint="#3F51B5"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toTopOf="@+id/btnLogout"
         app:layout_constraintEnd_toEndOf="parent" />
