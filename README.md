@@ -37,8 +37,7 @@ Android SDK 33 或更高版本
 Android 模拟器或真机设备
 
 ### 项目结构
-swift
-复制代码
+```
 MemoApp/
 ├── app/
 │   ├── src/
@@ -55,7 +54,7 @@ MemoApp/
 │   │   │   └── res/
 │   │   │       ├── layout/                      // XML 布局文件
 │   │   │       └── values/                      // 字符串、颜色、样式资源
-
+```
 ### 应用截图
 登录界面
 ![298d9a55b47b0426054a573e8153f56e](https://github.com/user-attachments/assets/4a1ba023-3a52-43cb-a6ca-fadf7e7b5f03)
