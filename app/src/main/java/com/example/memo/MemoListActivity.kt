@@ -1,7 +1,9 @@
 package com.example.memo
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -28,7 +30,6 @@ class MemoListActivity : AppCompatActivity() {
         }
     }
 
-    // 假设编辑页面同样返回 RESULT_OK 表示修改成功
     private val editMemoLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result: ActivityResult ->
@@ -44,14 +45,11 @@ class MemoListActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        adapter = MemoAdapter(
-            onItemClick = { memo ->
-                // 点击备忘录，跳转编辑页面，传递memo id或全部数据
-                val intent = Intent(this, EditMemoActivity::class.java)
-                intent.putExtra("memo_id", memo.id)
-                editMemoLauncher.launch(intent)
-            }
-        )
+        adapter = MemoAdapter { memo ->
+            val intent = Intent(this, EditMemoActivity::class.java)
+            intent.putExtra("memo_id", memo.id)
+            editMemoLauncher.launch(intent)
+        }
         recyclerView.adapter = adapter
 
         findViewById<FloatingActionButton>(R.id.fabAddMemo).setOnClickListener {
@@ -59,9 +57,25 @@ class MemoListActivity : AppCompatActivity() {
             addMemoLauncher.launch(intent)
         }
 
-        // 长按删除
         adapter.setOnItemLongClickListener { memo ->
             showDeleteConfirmDialog(memo)
+        }
+
+        val btnLogout = findViewById<Button>(R.id.btnLogout)
+        btnLogout.setOnClickListener {
+            Toast.makeText(this, "已退出登录", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
+
+        val btnClearAccount = findViewById<Button>(R.id.btnClearAccount)
+        btnClearAccount.setOnClickListener {
+            val sp = getSharedPreferences("login_prefs", Context.MODE_PRIVATE)
+            with(sp.edit()) {
+                clear()
+                apply()
+            }
+            Toast.makeText(this, "账户信息已清除", Toast.LENGTH_SHORT).show()
         }
 
         loadMemos()
